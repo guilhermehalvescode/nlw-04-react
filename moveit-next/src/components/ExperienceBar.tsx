@@ -1,4 +1,5 @@
-import {useState} from 'react';
+import {useState} from 'react'
+import styles from '../styles/components/ExperienceBar.module.css'
 
 export function ExperienceBar() {
   const [experienceBar, setExperienceBar] = useState({
@@ -17,11 +18,11 @@ export function ExperienceBar() {
   }
 
   return (
-    <header className="experience-bar">
+    <header className={styles.experienceBar}>
       <span>{experienceBar.initial} xp</span>
       <div>
         <div style={{width: `${experienceBar.percent}%`}}></div>
-        <span style={{left: `${experienceBar.percent}%`}} className="current-experience">{(experienceBar.max - experienceBar.initial)*(experienceBar.percent/100.0) + experienceBar.initial} xp</span>
+        <span style={{left: `${experienceBar.percent}%`}} className={styles.currentExperience}>{(experienceBar.max - experienceBar.initial)*(experienceBar.percent/100.0) + experienceBar.initial} xp</span>
       </div>
       <span>{experienceBar.max} xp</span>
       <button onClick={tenPercent}>Aumentar em 10%</button>
