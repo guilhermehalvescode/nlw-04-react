@@ -1,31 +1,19 @@
-import {useState} from 'react'
+import { useContext } from 'react'
+import { ChallengesContext } from '../contexts/ChallengesContext';
 import styles from '../styles/components/ExperienceBar.module.css'
 
 export function ExperienceBar() {
-  const [experienceBar, setExperienceBar] = useState({
-    initial: 0,
-    percent: 0,
-    max: 600
-  });
+  const { currentExperience, baseExperienceLevel, experienceToNextLevel } = useContext(ChallengesContext);
 
-  function tenPercent() {
-    setExperienceBar(prev => {
-      prev.percent += 10;
-      return {
-        ...prev
-      };
-    });
-  }
-
+  const percentToNextLevel = Math.round(((currentExperience - baseExperienceLevel) * 100) / experienceToNextLevel);
   return (
     <header className={styles.experienceBar}>
-      <span>{experienceBar.initial} xp</span>
+      <span>{baseExperienceLevel} xp</span>
       <div>
-        <div style={{width: `${experienceBar.percent}%`}}></div>
-        <span style={{left: `${experienceBar.percent}%`}} className={styles.currentExperience}>{(experienceBar.max - experienceBar.initial)*(experienceBar.percent/100.0) + experienceBar.initial} xp</span>
+        <div style={{width: `${percentToNextLevel}%`}} />
+        <span style={{left: `${percentToNextLevel}%`}} className={styles.currentExperience}>{currentExperience} xp</span>
       </div>
-      <span>{experienceBar.max} xp</span>
-      <button onClick={tenPercent}>Aumentar em 10%</button>
+      <span>{experienceToNextLevel} xp</span>
     </header>
   );
 }
